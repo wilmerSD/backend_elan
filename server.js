@@ -23,9 +23,10 @@ io.on('connection', (socket) => {
   console.log('🟢 Cliente conectado vía WebSocket');
 
   // Escuchar cuando Flutter avisa que se entregó un pedido
-  socket.on('order_delivered', (orderId) => {
-    console.log(`📬 Pedido entregado recibido: ID ${orderId}`);
-    socket.broadcast.emit('order_delivered_emit', orderId);
+  socket.on('order_delivered', ({ orderId, status }) => {
+    // console.log(`📬 Pedido entregado recibido: ID ${orderId}`);
+    console.log(`📬 Pedido entregado: ID ${orderId}, Estado: ${status}`);
+    socket.broadcast.emit('order_delivered_emit', { orderId, status });
     // socket.emit('order_delivered_emit', orderId);
   });
 
